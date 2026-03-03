@@ -3,17 +3,24 @@ include('conexion.php');
 $con = connection();
 $sql = "SELECT * FROM usuarios";
 $query = mysqli_query($con, $sql);
+
+// Lógica para el gráfico: Contamos el total de filas
+$total_registros = mysqli_num_rows($query);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Tarea CRUD</title>
+    <title>Tarea CRUD - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        body { background-color: #f8f9fa; }
         .navbar { margin-bottom: 30px; }
         .contenedor-principal { max-width: 1100px; }
         th { background-color: #f8f9fa !important; }
+        /* Estilo para que el gráfico no sea gigante */
+        .chart-container { width: 150px; margin: 0 auto; }
     </style>
 </head>
 <body>
@@ -25,6 +32,23 @@ $query = mysqli_query($con, $sql);
     </nav>
 
     <div class="container contenedor-principal">
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8 text-center text-md-start px-4">
+                        <h5 class="text-secondary">Resumen Operativo</h5>
+                        <h1 class="display-4 fw-bold text-primary"><?= $total_registros ?></h1>
+                        <p class="text-muted">Total de registros almacenados en la base de datos.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="chart-container">
+                            <canvas id="graficoCircular"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="card border-0 shadow-sm mb-5">
             <div class="card-body">
@@ -54,7 +78,7 @@ $query = mysqli_query($con, $sql);
 
         <h4 class="text-secondary mb-3">Lista de Usuarios</h4>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle">
+            <table class="table table-bordered table-hover align-middle bg-white shadow-sm">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -84,6 +108,28 @@ $query = mysqli_query($con, $sql);
         </div>
 
     </div>
+
+    <script>
+        const ctx = document.getElementById('graficoCircular');
+        new Chart(ctx, {
+            type: 'doughnut', // Tipo "Dona" para que parezca un anillo
+            data: {
+                labels: ['Registros'],
+                datasets: [{
+                    label: 'Cantidad',
+                    data: [<?= $total_registros ?>, 0], // Solo usamos el total
+                    backgroundColor: ['#0d6efd', '#e9ecef'], // Azul Bootstrap y gris
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '75%', // Hace el círculo más delgado
+                plugins: {
+                    legend: { display: false } // Ocultamos las etiquetas para que sea simple
+                }
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
