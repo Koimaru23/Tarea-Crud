@@ -58,8 +58,8 @@ $total_registros = mysqli_num_rows($query);
         <div class="card p-4 mt-4">
             <h4 class="text-secondary mb-4">Agregar Nuevo Registro</h4>
             <form action="insertar.php" method="POST" class="row g-2">
-                <div class="col-md-2"><input type="text" name="name" class="form-control" placeholder="Nombre" required></div>
-                <div class="col-md-2"><input type="text" name="lastname" class="form-control" placeholder="Apellido" required></div>
+                <div class="col-md-2"><input type="text" name="nombre" class="form-control" placeholder="Nombre" required></div>
+                <div class="col-md-2"><input type="text" name="apellido" class="form-control" placeholder="Apellido" required></div>
                 <div class="col-md-2"><input type="text" name="username" class="form-control" placeholder="Usuario" required></div>
                 <div class="col-md-2"><input type="password" name="password" class="form-control" placeholder="Clave" required></div>
                 <div class="col-md-2"><input type="email" name="email" class="form-control" placeholder="Correo" required></div>
@@ -84,8 +84,8 @@ $total_registros = mysqli_num_rows($query);
                         <?php while($row = mysqli_fetch_array($query)): ?>
                         <tr>
                             <td class="text-muted"><?= $row['id'] ?></td>
-                            <td><?= $row['name'] ?></td>
-                            <td><?= $row['lastname'] ?></td>
+                            <td><?= $row['nombre'] ?></td>
+                            <td><?= $row['apellido'] ?></td>
                             <td><span class="badge badge-user">@<?= $row['username'] ?></span></td>
                             <td><?= $row['email'] ?></td>
                             <td class="text-center">
