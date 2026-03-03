@@ -45,7 +45,7 @@ $total_registros = mysqli_num_rows($query);
                 <div class="col-md-8">
                     <h6 class="text-muted small fw-bold text-uppercase mb-3" style="letter-spacing: 1px;">ESTADO DE LA BASE DE DATOS</h6>
                     <h1 class="display-5 fw-bold text-dark mb-0"><?= $total_registros ?> <span class="fs-3 fw-normal text-muted">Usuarios</span></h1>
-                    <p class="text-muted mt-1">Total de todos los registrados.</p>
+                    <p class="text-muted mt-1">Total de todos los registrados 7w7.</p>
                 </div>
                 <div class="col-md-4">
                     <div class="chart-container">
